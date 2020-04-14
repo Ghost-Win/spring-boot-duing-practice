@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{list.title}">国内疫情数据</title>
+    <link rel="stylesheet" th:href="@{/bootstrap.css}">
+</head>
+<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+<script>
+
+</script>
+<body>
+<h2 th:text="#{list.h2}">具体情况如下：</h2><br>
+<!--使用bootstrap简单设置悬停样式-->
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th><p th:text="#{list.table.name1}">地区</p></th>
+            <th><p th:text="#{list.table.name2}">新增确诊</p></th>
+            <th><p th:text="#{list.table.name3}">累计确诊</p></th>
+            <th><p th:text="#{list.table.name4}">治愈</p></th>
+            <th><p th:text="#{list.table.name5}">死亡</p></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="data:${dataList}">
+            <td th:text="${data.area}" name="area">area</td>
+            <td th:text="${data.confirmAdd}">confirmAdd</td>
+            <td th:text="${data.confirm}">confirm</td>
+            <td th:text="${data.heal}">heal</td>
+            <td th:text="${data.dead}">dead</td>
+        </tr>
+    </tbody>
+</table>
+
+<label>
+    <a class="btn btn-sm" th:href="@{/list(l='zh_CN')}">中文</a>
+    <a class="btn btn-sm" th:href="@{/list(l='en_US')}">英文</a>
+</label>
+
+</body>
+</html>

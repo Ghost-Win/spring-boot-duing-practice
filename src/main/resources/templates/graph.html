@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>折线图1.13~2.25</title>
+    <script type="text/javascript" src="echarts/echarts.min.js"></script>
+    <!--<script type="text/javascript" src="https://cdn.bootcss.com/echarts/3.7.1/echarts.min.js"></script>-->
+</head>
+<body>
+<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+<div id="main" style="width: 600px;height:400px;"></div>
+<!--thymeleaf 结合js使用的方式,在js中使用thymeleaf渲染数据-->
+<script th:inline="javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+    //拿到的数据都是json字符串
+    var dateStr = [[${dateList}]];
+    var confirmStr = [[${confirmList}]];
+    var suspectStr = [[${suspectList}]];
+    //charts参数设置
+    option = {
+        //组件标题
+        title:{
+            text:'疫情趋势图'
+        },//折线描述
+        legend:{
+            data:['累计确诊','累计疑似']
+        },
+        xAxis: {
+            data: JSON.parse(dateStr)
+        },
+        yAxis: {
+            //代表y轴数据是数值，数据本身是连续的
+            type: 'value'
+        },
+        //列表
+        series: [{
+            name:'累计确诊',
+            data: JSON.parse(confirmStr),
+            type: 'line'
+        },{
+            name:'累计疑似',
+            data: JSON.parse(suspectStr),
+            type: 'line'
+            }]
+    };
+
+    //将设置好的参数，传递给我的myChart来展示
+    myChart.setOption(option)
+
+
+</script>
+</body>
+</html>
